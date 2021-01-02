@@ -83,6 +83,13 @@ bool save_signature(const char *const signature_file)
         goto cleanup;
     }
 
+    char* rPart = BN_bn2hex(r);
+    char* sPart = BN_bn2hex(s);
+    printf("\n\n\nr: %s\ns: %s\n\n", rPart, sPart);
+    BN_add(r, r, s);
+    char* sum = BN_bn2hex(r);
+    printf("sum: %s\n\n", sum);
+
     sig_len = i2d_ECDSA_SIG(ecdsa_sig, NULL);
     if (sig_len <= 0)
     {
