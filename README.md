@@ -1,8 +1,4 @@
 # Signature_ECDSA
-*******************************************************
-***** Gateway Key Provisioning and Secure Signing *****
-***** using Intel® Software Guard Extensions      *****
-*******************************************************
 
 Prerequisites:
 
