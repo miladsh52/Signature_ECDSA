@@ -40,7 +40,7 @@ bool enclave_generate_key()
     return (sgx_lasterr == SGX_SUCCESS);
 }
 
-static bool convert_sgx_key_to_openssl_key(EC_KEY *key, const uint8_t *key_buffer, size_t key_buffer_size)
+static bool convert_sgx_key_to_openssl_key(EC_KEY *key, uint8_t *key_buffer, size_t key_buffer_size)
 {
     bool ret_status = true;
 
@@ -50,8 +50,31 @@ static bool convert_sgx_key_to_openssl_key(EC_KEY *key, const uint8_t *key_buffe
         return false;
     }
 
+    printf("\n\n\n");
+
+    // uint8_t pubKey[key_buffer_size];
+    // for(size_t i=0;i<key_buffer_size;i++)
+    // {
+    //     if(key_buffer[i]<16)
+    //     {
+    //         pubKey[i] = '0' + key_buffer[i];
+    //     }
+    //     else
+    //     {
+    //         pubKey[i] = key_buffer[i];
+    //     }
+        
+    //     printf("%x", pubKey[i]);
+    // }
+    // printf("\n");
+
     BIGNUM *bn_x = bignum_from_little_endian_bytes_32(key_buffer);
     BIGNUM *bn_y = bignum_from_little_endian_bytes_32(key_buffer + 32);
+
+    char* firstPart = BN_bn2hex(bn_y);
+    printf("%s", firstPart);
+    char* secondPart = BN_bn2hex(bn_x);
+    printf("%s\n\n\n", secondPart);
 
     if (1 != EC_KEY_set_public_key_affine_coordinates(key, bn_x, bn_y))
     {
