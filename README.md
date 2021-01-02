@@ -53,5 +53,4 @@ $ chmod +x run_demo_*.sh
 $ ./run_demo_openssl.sh
 
 6) Run the same flow, using an SGX enclave:
-
-# ./run_demo_sgx.sh
+./run_demo_sgx.sh
